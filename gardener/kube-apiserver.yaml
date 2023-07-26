@@ -18,11 +18,10 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: garden-kube-apiserver
-      version: 4.2.0
+      chart: ./helmcharts/garden-kube-apiserver
       sourceRef:
-        kind: HelmRepository
-        name: gardener-community-charts
+        kind: GitRepository
+        name: yake
         namespace: flux-system
       interval: 1m
   valuesFrom:
