@@ -122,6 +122,13 @@ spec:
         - --service-account-issuer=https://kubernetes.default.svc
         - --service-account-signing-key-file=/srv/kubernetes/service-account-key/service_account.key
         - --service-account-key-file=/srv/kubernetes/service-account-key/service_account.key
+        {{- if .Values.apiServer.featureGates }}
+          {{- $featureGates := list -}}
+          {{- range $key, $value := .Values.apiServer.featureGates }}
+            {{ $featureGates = append $featureGates (printf "%s=%v" $key $value) }}
+          {{- end }}
+        - --feature-gates={{ join "," $featureGates }}
+        {{- end }}
         livenessProbe:
           httpGet:
             scheme: HTTPS
