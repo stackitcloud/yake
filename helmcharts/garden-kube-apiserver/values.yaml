@@ -2,6 +2,8 @@ apiServer:
     hostname: 127.0.0.1
     oidcIssuerURL: https://identity.URL
     serviceName: garden-kube-apiserver
+    featureGates: {}
+    #    UnauthenticatedHTTP2DOSMitigation: true
 gardenletBootstrap:
     createToken: false
     token:
