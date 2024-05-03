@@ -15,6 +15,35 @@ spec:
     - name: certificates
   chart:
     spec:
+      postRenderers:
+        - kustomize:
+            patches:
+              - target:
+                  apiVersion: apps/v1
+                  kind: StatefulSet
+                  name: etcd
+                patch: |
+                  spec:
+                    template:
+                      spec:
+                        containers:
+                        - name: etcd
+                          volumeMounts:
+                          - name: etcd
+                            mountPath: /var/etcd/data
+                        - name: backup-restore
+                          volumeMounts:
+                          - name: etcd
+                            mountPath: /var/etcd/data
+                    volumeClaimTemplates:
+                    - metadata:
+                        name: etcd
+                      spec:
+                        accessModes:
+                        - "ReadWriteOnce"
+                        resources:
+                          requests:
+                            storage: 10Gi
       chart: etcd
       version: 6.0.0
       sourceRef:
