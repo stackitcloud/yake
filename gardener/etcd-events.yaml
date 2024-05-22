@@ -74,7 +74,16 @@ spec:
               version: v1
               name: etcd-events
               namespace: garden
-            patch: |
+            patch: |-
               - op: add
                 path: /spec/template/spec/priorityClassName
                 value: gardener-kubernetes
+              - op: replace
+                path: /spec/template/spec/containers/0/volumeMounts/0/name
+                value: etcd-events
+              - op: replace
+                path: /spec/template/spec/containers/1/volumeMounts/1/name
+                value: etcd-events
+              - op: replace
+                path: /spec/volumeClaimTemplates/0/metadata/name
+                value: etcd-events
