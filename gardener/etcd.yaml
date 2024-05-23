@@ -15,11 +15,10 @@ spec:
     - name: certificates
   chart:
     spec:
-      chart: etcd
-      version: 6.2.0
+      chart: ./helmcharts/etcd
       sourceRef:
-        kind: HelmRepository
-        name: gardener-community-charts
+        kind: GitRepository
+        name: yake
         namespace: flux-system
       interval: 1m
   valuesFrom:
