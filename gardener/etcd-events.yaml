@@ -67,29 +67,13 @@ spec:
       targetPath: tls.client.key
   postRenderers:
     - kustomize:
-        patches:
-          - target:
-              group: apps
-              version: v1
-              kind: StatefulSet
+        patchesStrategicMerge:
+          - kind: StatefulSet
+            apiVersion: apps/v1
+            metadata:
               name: etcd-events
-            patch: |-
-              - op: replace
-                path: /spec/template/spec/containers/0/volumeMounts/0/name
-                value: etcd-events
-              - op: replace
-                path: /spec/template/spec/containers/1/volumeMounts/1/name
-                value: etcd-events
-              - op: replace
-                path: /spec/volumeClaimTemplates/0/metadata/name
-                value: etcd-events
-          - patch: |-
-              apiVersion: apps/v1
-              kind: StatefulSet
-              metadata:
-                name: etcd-events
-                namespace: garden
-              spec:
-                template:
-                  spec:
-                    priorityClassName: gardener-kubernetes
+              namespace: garden
+            spec:
+              template:
+                spec:
+                  priorityClassName: gardener-kubernetes
