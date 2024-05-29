@@ -16,8 +16,6 @@ tests:
                   labels:
                     yake.cloud/component: ingress-nginx
               podLabels:
-                app: nginx-ingress
-                component: controller
                 yake.cloud/component: ingress-nginx
               service:
                 annotations:
